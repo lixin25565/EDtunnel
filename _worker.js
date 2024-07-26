@@ -866,7 +866,4 @@ function สร้างวเลสSub(ไอดีผู้ใช้_เส้
 	return ผลลัพธ์.join('\n');
 }
 
-const cn_hostnames = [
-	'www.cntv.cn',
- 'www.bilibili.com'
-];
+const cn_hostnames = ['www.cntv.cn','www.bilibili.com'];
