@@ -5,7 +5,7 @@ import { connect } from 'cloudflare:sockets';
 // [Windows] Press "Win + R", input cmd and run:  Powershell -NoExit -Command "[guid]::NewGuid()"
 let userID = 'e564ea51-d060-4df7-8c1a-c4f7579d4e9a';
 
-const พร็อกซีไอพีs = ['cdn-all.xn--b6gac.eu.org'];
+const พร็อกซีไอพีs = ['cdn.xn--b6gac.eu.org'];
 
 // if you want to use ipv6 or single พร็อกซีไอพี, please add comment at this line and remove comment at the next line
 let พร็อกซีไอพี = พร็อกซีไอพีs[Math.floor(Math.random() * พร็อกซีไอพีs.length)];
@@ -711,12 +711,12 @@ function getวเลสConfig(userIDs, hostName) {
 		const วเลสSec = atob(pt) + '://' + userID + atob(at) + พร็อกซีไอพี + commonUrlPart;
 		return `<h2>UUID: ${userID}</h2>${hashSeparator}\nv2ray default ip
 ---------------------------------------------------------------
-<code>${วเลสMain}</code>
+${วเลสMain}
 <button onclick='copyToClipboard("${วเลสMain}")'><i class="fa fa-clipboard"></i> Copy วเลสMain</button>
 ---------------------------------------------------------------
 v2ray with bestip
 ---------------------------------------------------------------
-<code>${วเลสSec}</code>
+${วเลสSec}
 <button onclick='copyToClipboard("${วเลสSec}")'><i class="fa fa-clipboard"></i> Copy วเลสSec</button>
 ---------------------------------------------------------------`;
 	}).join('\n');
@@ -761,172 +761,45 @@ v2ray with bestip
 	<meta property='og:image:height' content='1500' />
 
 	<style>
-	// body {
-	//   font-family: Arial, sans-serif;
-	//   background-color: #f0f0f0;
-	//   color: #333;
-	//   padding: 10px;
-	// }
-
-	// a {
-	//   color: #1a0dab;
-	//   text-decoration: none;
-	// }
-	// img {
-	//   max-width: 100%;
-	//   height: auto;
-	// }
-
-	// pre {
-	//   white-space: pre-wrap;
-	//   word-wrap: break-word;
-	//   background-color: #fff;
-	//   border: 1px solid #ddd;
-	//   padding: 15px;
-	//   margin: 10px 0;
-	// }
-	// /* Dark mode */
-	// @media (prefers-color-scheme: dark) {
-	//   body {
-	// 	background-color: #333;
-	// 	color: #f0f0f0;
-	//   }
-
-	//   a {
-	// 	color: #9db4ff;
-	//   }
-
-	//   pre {
-	// 	background-color: #282a36;
-	// 	border-color: #6272a4;
-	//   }
-	// }
-	 /* 重置和基础样式 */
-	* {
-	    margin: 0;
-	    padding: 0;
-	    box-sizing: border-box;
+	body {
+	  font-family: Arial, sans-serif;
+	  background-color: #f0f0f0;
+	  color: #333;
+	  padding: 10px;
 	}
-	
-	body, html {
-	    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	    line-height: 1.6;
-	    background-color: #f7f9fc;
-	    color: #333;
-	    padding: 20px;
-	}
-	
+
 	a {
-	    color: #007bff;
-	    text-decoration: none;
+	  color: #1a0dab;
+	  text-decoration: none;
 	}
-	
-	a:hover {
-	    text-decoration: underline;
+	img {
+	  max-width: 100%;
+	  height: auto;
 	}
-	
-	/* 页眉样式 */
-	.header {
-	    background-color: #35424a;
-	    color: #ffffff;
-	    padding: 20px 0;
-	    text-align: center;
+
+	pre {
+	  white-space: pre-wrap;
+	  word-wrap: break-word;
+	  background-color: #fff;
+	  border: 1px solid #ddd;
+	  padding: 15px;
+	  margin: 10px 0;
 	}
-	
-	.header h1 {
-	    margin: 0;
-	    font-size: 2.5rem;
-	}
-	
-	/* 容器和内容区域样式 */
-	.container {
-	    width: 80%;
-	    margin: 40px auto;
-	    background: #fff;
-	    border-radius: 8px;
-	    padding: 40px;
-	    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
-	}
-	
-	.content {
-	    margin-bottom: 40px;
-	}
-	
-	/* 配置列表和项样式 */
-	.config-list {
-	    list-style-type: none;
-	}
-	
-	.config-item {
-	    border-bottom: 1px solid #e9ecef;
-	    padding: 20px 0;
-	}
-	
-	.config-item:last-child {
-	    border-bottom: none;
-	}
-	
-	.config-title {
-	    font-size: 1.5rem;
-	    margin-bottom: 10px;
-	}
-	
-	.config-content {
-	    background-color: #eef;
-	    padding: 20px;
-	    border-radius: 5px;
-	    margin-bottom: 10px;
-	    position: relative;
-	}
-	
-	/* 按钮和复制消息样式 */
-	.button {
-	    background-color: #007bff;
-	    color: white;
-	    padding: 10px 15px;
-	    border: none;
-	    border-radius: 5px;
-	    cursor: pointer;
-	    transition: background-color 0.3s ease;
-	    margin-right: 10px;
-	}
-	
-	.button:hover {
-	    background-color: #0056b3;
-	}
-	
-	.copy-message {
-	    display: none;
-	    position: absolute;
-	    top: 5px;
-	    right: 10px;
-	    color: #5cb85c;
-	    font-size: 0.8rem;
-	}
-	
-	/* 页脚样式 */
-	.footer {
-	    text-align: center;
-	    padding: 20px 0;
-	    background-color: #333;
-	    color: #fff;
-	    width: 100%;
-	}
-	
-	/* 响应式设计 */
-	@media (max-width: 768px) {
-	    .container {
-	        width: 95%;
-	        padding: 20px;
-	    }
-	
-	    .header h1 {
-	        font-size: 2rem;
-	    }
-	
-	    .config-title {
-	        font-size: 1.2rem;
-	    }
+	/* Dark mode */
+	@media (prefers-color-scheme: dark) {
+	  body {
+		background-color: #333;
+		color: #f0f0f0;
+	  }
+
+	  a {
+		color: #9db4ff;
+	  }
+
+	  pre {
+		background-color: #282a36;
+		border-color: #6272a4;
+	  }
 	}
 	</style>
 
@@ -993,4 +866,79 @@ function สร้างวเลสSub(ไอดีผู้ใช้_เส้
 	return ผลลัพธ์.join('\n');
 }
 
-const cn_hostnames = ['www.cntv.cn'];
+const cn_hostnames = [
+	'weibo.com',                // Weibo - A popular social media platform
+	'www.baidu.com',            // Baidu - The largest search engine in China
+	'www.qq.com',               // QQ - A widely used instant messaging platform
+	'www.taobao.com',           // Taobao - An e-commerce website owned by Alibaba Group
+	'www.jd.com',               // JD.com - One of the largest online retailers in China
+	'www.sina.com.cn',          // Sina - A Chinese online media company
+	'www.sohu.com',             // Sohu - A Chinese internet service provider
+	'www.tmall.com',            // Tmall - An online retail platform owned by Alibaba Group
+	'www.163.com',              // NetEase Mail - One of the major email providers in China
+	'www.zhihu.com',            // Zhihu - A popular question-and-answer website
+	'www.youku.com',            // Youku - A Chinese video sharing platform
+	'www.xinhuanet.com',        // Xinhua News Agency - Official news agency of China
+	'www.douban.com',           // Douban - A Chinese social networking service
+	'www.meituan.com',          // Meituan - A Chinese group buying website for local services
+	'www.toutiao.com',          // Toutiao - A news and information content platform
+	'www.ifeng.com',            // iFeng - A popular news website in China
+	'www.autohome.com.cn',      // Autohome - A leading Chinese automobile online platform
+	'www.360.cn',               // 360 - A Chinese internet security company
+	'www.douyin.com',           // Douyin - A Chinese short video platform
+	'www.kuaidi100.com',        // Kuaidi100 - A Chinese express delivery tracking service
+	'www.wechat.com',           // WeChat - A popular messaging and social media app
+	'www.csdn.net',             // CSDN - A Chinese technology community website
+	'www.imgo.tv',              // ImgoTV - A Chinese live streaming platform
+	'www.aliyun.com',           // Alibaba Cloud - A Chinese cloud computing company
+	'www.eyny.com',             // Eyny - A Chinese multimedia resource-sharing website
+	'www.mgtv.com',             // MGTV - A Chinese online video platform
+	'www.xunlei.com',           // Xunlei - A Chinese download manager and torrent client
+	'www.hao123.com',           // Hao123 - A Chinese web directory service
+	'www.bilibili.com',         // Bilibili - A Chinese video sharing and streaming platform
+	'www.youth.cn',             // Youth.cn - A China Youth Daily news portal
+	'www.hupu.com',             // Hupu - A Chinese sports community and forum
+	'www.youzu.com',            // Youzu Interactive - A Chinese game developer and publisher
+	'www.panda.tv',             // Panda TV - A Chinese live streaming platform
+	'www.tudou.com',            // Tudou - A Chinese video-sharing website
+	'www.zol.com.cn',           // ZOL - A Chinese electronics and gadgets website
+	'www.toutiao.io',           // Toutiao - A news and information app
+	'www.tiktok.com',           // TikTok - A Chinese short-form video app
+	'www.netease.com',          // NetEase - A Chinese internet technology company
+	'www.cnki.net',             // CNKI - China National Knowledge Infrastructure, an information aggregator
+	'www.zhibo8.cc',            // Zhibo8 - A website providing live sports streams
+	'www.zhangzishi.cc',        // Zhangzishi - Personal website of Zhang Zishi, a public intellectual in China
+	'www.xueqiu.com',           // Xueqiu - A Chinese online social platform for investors and traders
+	'www.qqgongyi.com',         // QQ Gongyi - Tencent's charitable foundation platform
+	'www.ximalaya.com',         // Ximalaya - A Chinese online audio platform
+	'www.dianping.com',         // Dianping - A Chinese online platform for finding and reviewing local businesses
+	'www.suning.com',           // Suning - A leading Chinese online retailer
+	'www.zhaopin.com',          // Zhaopin - A Chinese job recruitment platform
+	'www.jianshu.com',          // Jianshu - A Chinese online writing platform
+	'www.mafengwo.cn',          // Mafengwo - A Chinese travel information sharing platform
+	'www.51cto.com',            // 51CTO - A Chinese IT technical community website
+	'www.qidian.com',           // Qidian - A Chinese web novel platform
+	'www.ctrip.com',            // Ctrip - A Chinese travel services provider
+	'www.pconline.com.cn',      // PConline - A Chinese technology news and review website
+	'www.cnzz.com',             // CNZZ - A Chinese web analytics service provider
+	'www.telegraph.co.uk',      // The Telegraph - A British newspaper website	
+	'www.ynet.com',             // Ynet - A Chinese news portal
+	'www.ted.com',              // TED - A platform for ideas worth spreading
+	'www.renren.com',           // Renren - A Chinese social networking service
+	'www.pptv.com',             // PPTV - A Chinese online video streaming platform
+	'www.liepin.com',           // Liepin - A Chinese online recruitment website
+	'www.881903.com',           // 881903 - A Hong Kong radio station website
+	'www.aipai.com',            // Aipai - A Chinese online video sharing platform
+	'www.ttpaihang.com',        // Ttpaihang - A Chinese celebrity popularity ranking website
+	'www.quyaoya.com',          // Quyaoya - A Chinese online ticketing platform
+	'www.91.com',               // 91.com - A Chinese software download website
+	'www.dianyou.cn',           // Dianyou - A Chinese game information website
+	'www.tmtpost.com',          // TMTPost - A Chinese technology media platform
+	'www.douban.com',           // Douban - A Chinese social networking service
+	'www.guancha.cn',           // Guancha - A Chinese news and commentary website
+	'www.so.com',               // So.com - A Chinese search engine
+	'www.58.com',               // 58.com - A Chinese classified advertising website
+	'www.cnblogs.com',          // Cnblogs - A Chinese technology blog community
+	'www.cntv.cn',              // CCTV - China Central Television official website
+	'www.secoo.com',            // Secoo - A Chinese luxury e-commerce platform
+];
