@@ -762,8 +762,8 @@ function getวเลสConfig(userIDs, hostName) {
 		<table>
 		  <thead>
 		    <tr>
-		  	  <th>SUB BEST IP</th>
-		      <th>SUB</th>
+		  	  <th>SUB-BEST-IP</th>
+		      <th>SUB-IP</th>
 		    </tr>
 		  </thead>
 		  <tbody>
