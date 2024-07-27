@@ -783,29 +783,52 @@ v2ray with bestip
 	<meta property='og:image:height' content='1500' />
 
 	<style>
+	table {
+		width: 100%;
+		border-collapse: collapse; /* 确保边框合并 */
+		border: 1px solid #ddd; /* 表格边框颜色 */
+	}
+
+	th, td {
+		padding: 8px; /* 单元格内边距 */
+		border: 1px solid #ddd; /* 单元格边框颜色 */
+		text-align: left; /* 文本对齐方式 */
+	}
+
+	thead {
+		background-color: #f2f2f2; /* 表头背景色 */
+	}
+
+	tr:nth-child(odd) {
+		background-color: #fff; /* 奇数行背景色 */
+	}
+
+	tr:nth-child(even) {
+		background-color: #f9f9f9; /* 偶数行背景色 */
+	}
 	body {
-	  font-family: Arial, sans-serif;
-	  background-color: #f0f0f0;
-	  color: #333;
-	  padding: 10px;
+	  	font-family: Arial, sans-serif;
+	  	background-color: #f0f0f0;
+	  	color: #333;
+	 	padding: 10px;
 	}
 
 	a {
-	  color: #1a0dab;
-	  text-decoration: none;
+		color: #1a0dab;
+		text-decoration: none;
 	}
 	img {
-	  max-width: 100%;
-	  height: auto;
+		max-width: 100%;
+		height: auto;
 	}
 
 	pre {
-	  white-space: pre-wrap;
-	  word-wrap: break-word;
-	  background-color: #fff;
-	  border: 1px solid #ddd;
-	  padding: 15px;
-	  margin: 10px 0;
+		white-space: pre-wrap;
+		word-wrap: break-word;
+		background-color: #fff;
+		border: 1px solid #ddd;
+		padding: 15px;
+		margin: 10px 0;
 	}
 	/* Dark mode */
 	@media (prefers-color-scheme: dark) {
