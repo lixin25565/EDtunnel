@@ -1,14 +1,16 @@
 // @ts-ignore
-import { connect } from 'cloudflare:sockets';
+import {
+	connect
+} from 'cloudflare:sockets';
 
 // How to generate your own UUID:
 // [Windows] Press "Win + R", input cmd and run:  Powershell -NoExit -Command "[guid]::NewGuid()"
 let userID = 'e564ea51-d060-4df7-8c1a-c4f7579d4e9a';
 
-const พร็อกซีไอพีs = ['cdn.xn--b6gac.eu.org'];
+const พร็ อกซีไอพีs = ['cdn.xn--b6gac.eu.org'];
 
 // if you want to use ipv6 or single พร็อกซีไอพี, please add comment at this line and remove comment at the next line
-let พร็อกซีไอพี = พร็อกซีไอพีs[Math.floor(Math.random() * พร็อกซีไอพีs.length)];
+let พร็ อกซีไอพี = พร็ อกซีไอพีs[Math.floor(Math.random() * พร็ อกซีไอพีs.length)];
 // use single พร็อกซีไอพี instead of random
 // let พร็อกซีไอพี = 'cdn.xn--b6gac.eu.org';
 // ipv6 พร็อกซีไอพี example remove comment to use
@@ -31,7 +33,7 @@ export default {
 		// uuid_validator(request);
 		try {
 			userID = env.UUID || userID;
-			พร็อกซีไอพี = env.PROXYIP || พร็อกซีไอพี;
+			พร็ อกซีไอพี = env.PROXYIP || พร็ อกซีไอพี;
 			dohURL = env.DNS_RESOLVER_URL || dohURL;
 			let userID_Path = userID;
 			if (userID.includes(',')) {
@@ -61,7 +63,7 @@ export default {
 					case `/sub/${userID_Path}`: {
 						const url = new URL(request.url);
 						const searchParams = url.searchParams;
-						const วเลสSubConfig = สร้างวเลสSub(userID, request.headers.get('Host'));
+						const วเลสSubConfig = สร้ างวเลสSub(userID, request.headers.get('Host'));
 						// Construct and return response object
 						return new Response(btoa(วเลสSubConfig), {
 							status: 200,
@@ -73,7 +75,9 @@ export default {
 					case `/bestip/${userID_Path}`: {
 						const headers = request.headers;
 						const url = `https://sub.xf.free.hr/auto?host=${request.headers.get('Host')}&uuid=${userID}&path=/`;
-						const bestSubConfig = await fetch(url, { headers: headers });
+						const bestSubConfig = await fetch(url, {
+							headers: headers
+						});
 						return bestSubConfig;
 					};
 					default:
@@ -93,7 +97,9 @@ export default {
 							body: request.body,
 							redirect: 'manual',
 						});
-						const proxyResponse = await fetch(modifiedRequest, { redirect: 'manual' });
+						const proxyResponse = await fetch(modifiedRequest, {
+							redirect: 'manual'
+						});
 						// Check for 302 or 301 redirect status and return an error response
 						if ([301, 302].includes(proxyResponse.status)) {
 							return new Response(`Redirects to ${randomHostname} are not allowed.`, {
@@ -108,7 +114,8 @@ export default {
 				return await วเลสOverWSHandler(request);
 			}
 		} catch (err) {
-			/** @type {Error} */ let e = err;
+			/** @type {Error} */
+			let e = err;
 			return new Response(e.toString());
 		}
 	},
@@ -153,7 +160,7 @@ async function วเลสOverWSHandler(request) {
 	let address = '';
 	let portWithRandomLog = '';
 	let currentDate = new Date();
-	const log = (/** @type {string} */ info, /** @type {string | undefined} */ event) => {
+	const log = ( /** @type {string} */ info, /** @type {string | undefined} */ event) => {
 		console.log(`[${currentDate} ${address}:${portWithRandomLog}] ${info}`, event || '');
 	};
 	const earlyDataHeader = request.headers.get('sec-websocket-protocol') || '';
@@ -212,7 +219,9 @@ async function วเลสOverWSHandler(request) {
 
 			// TODO: support udp here when cf runtime has udp support
 			if (isDns) {
-				const { write } = await handleUDPOutBound(webSocket, วเลสResponseHeader, log);
+				const {
+					write
+				} = await handleUDPOutBound(webSocket, วเลสResponseHeader, log);
 				udpStreamWrite = write;
 				udpStreamWrite(rawClientData);
 				return;
@@ -247,7 +256,7 @@ async function วเลสOverWSHandler(request) {
  * @param {function} log The logging function.
  * @returns {Promise<void>} The remote socket.
  */
-async function handleTCPOutBound(remoteSocket, addressRemote, portRemote, rawClientData, webSocket, วเลสResponseHeader, log,) {
+async function handleTCPOutBound(remoteSocket, addressRemote, portRemote, rawClientData, webSocket, วเลสResponseHeader, log, ) {
 
 	/**
 	 * Connects to a given address and port and writes data to the socket.
@@ -274,7 +283,7 @@ async function handleTCPOutBound(remoteSocket, addressRemote, portRemote, rawCli
 	 * @returns {Promise<void>} A Promise that resolves when the retry is complete.
 	 */
 	async function retry() {
-		const tcpSocket = await connectAndWrite(พร็อกซีไอพี || addressRemote, portRemote)
+		const tcpSocket = await connectAndWrite(พร็ อกซีไอพี || addressRemote, portRemote)
 		tcpSocket.closed.catch(error => {
 			console.log('retry tcpSocket closed error', error);
 		}).finally(() => {
@@ -315,7 +324,10 @@ function makeReadableWebSocketStream(webSocketServer, earlyDataHeader, log) {
 				log('webSocketServer has error');
 				controller.error(err);
 			});
-			const { earlyData, error } = base64ToArrayBuffer(earlyDataHeader);
+			const {
+				earlyData,
+				error
+			} = base64ToArrayBuffer(earlyDataHeader);
 			if (error) {
 				controller.error(error);
 			} else if (earlyData) {
@@ -455,7 +467,7 @@ function processวเลสHeader(วเลสBuffer, userID) {
 		default:
 			return {
 				hasError: true,
-				message: `invild  addressType is ${addressType}`,
+					message: `invild  addressType is ${addressType}`,
 			};
 	}
 	if (!addressValue) {
@@ -496,8 +508,7 @@ async function remoteSocketToWS(remoteSocket, webSocket, วเลสResponseHea
 	await remoteSocket.readable
 		.pipeTo(
 			new WritableStream({
-				start() {
-				},
+				start() {},
 				/**
 				 * 
 				 * @param {Uint8Array} chunk 
@@ -557,16 +568,25 @@ async function remoteSocketToWS(remoteSocket, webSocket, วเลสResponseHea
  */
 function base64ToArrayBuffer(base64Str) {
 	if (!base64Str) {
-		return { earlyData: null, error: null };
+		return {
+			earlyData: null,
+			error: null
+		};
 	}
 	try {
 		// go use modified Base64 for URL rfc4648 which js atob not support
 		base64Str = base64Str.replace(/-/g, '+').replace(/_/g, '/');
 		const decode = atob(base64Str);
 		const arryBuffer = Uint8Array.from(decode, (c) => c.charCodeAt(0));
-		return { earlyData: arryBuffer.buffer, error: null };
+		return {
+			earlyData: arryBuffer.buffer,
+			error: null
+		};
 	} catch (error) {
-		return { earlyData: null, error };
+		return {
+			earlyData: null,
+			error
+		};
 	}
 }
 
@@ -643,8 +663,7 @@ async function handleUDPOutBound(webSocket, วเลสResponseHeader, log) {
 				controller.enqueue(udpData);
 			}
 		},
-		flush(controller) {
-		}
+		flush(controller) {}
 	});
 
 	// only handle dns udp for now
@@ -708,222 +727,206 @@ function getวเลสConfig(userIDs, hostName) {
 	// Prepare output string for each userID
 	const output = userIDArray.map((userID) => {
 		const วเลสMain = atob(pt) + '://' + userID + atob(at) + hostName + commonUrlPart;
-		const วเลสSec = atob(pt) + '://' + userID + atob(at) + พร็อกซีไอพี + commonUrlPart;
-		return `<h2>UUID: ${userID}</h2>${hashSeparator}\n
-<table>
-  <thead>
-	<tr>
-	  <th>v2ray default ip</th>
-	  <th>v2ray with bestip</th>
-	</tr>
-	<tr>
-	  <td><input type="text" value="${วเลสMain}" readonly></td>
-	  <td><input type="text" value="${วเลสSec}" readonly></td>
-	</tr>
-	<tr>
-	  <td><button onclick='copyToClipboard("${วเลสMain}")'><i class="fa fa-clipboard"></i> Copy วเลสMain </button></td>
-	  <td><button onclick='copyToClipboard("${วเลสSec}")'><i class="fa fa-clipboard"></i> Copy วเลสSec </button></td>
-	</tr>
-`;
+		const วเลสSec = atob(pt) + '://' + userID + atob(at) + พร็ อกซีไอพี + commonUrlPart;
+		return `
+			<h2>UUID: ${userID}</h2>
+			${hashSeparator}\n
+			<table>
+			  <thead>
+				<tr>
+				  <th>v2ray default ip</th>
+				  <th>v2ray with bestip</th>
+				</tr>
+				<tr>
+				  <td><input type="text" value="${วเลสMain}" readonly></td>
+				  <td><input type="text" value="${วเลสSec}" readonly></td>
+				</tr>
+				<tr>
+					<td><button onclick='copyToClipboard("${วเลสMain}")'><i class="fa fa-clipboard"></i> Copy</button></td>
+					<td><button onclick='copyToClipboard("${วเลสSec}")'><i class="fa fa-clipboard"></i> Copy</button></td>
+				</tr>
+			  </thead>
+			</table>
+		`;
 	}).join('\n');
 	const sublink = `https://${hostName}/sub/${userIDArray[0]}?format=clash`
 	const subbestip = `https://${hostName}/bestip/${userIDArray[0]}`;
 	const clash_link = `https://api.v1.mk/sub?target=clash&url=${encodeURIComponent(sublink)}&insert=false&emoji=true&list=false&tfo=false&scv=true&fdn=false&sort=false&new_name=true`;
 	// Prepare header string
 	const header = `
-<p align='center'><img src='https://cloudflare-ipfs.com/ipfs/bafybeigd6i5aavwpr6wvnwuyayklq3omonggta4x2q7kpmgafj357nkcky' alt='图片描述' style='margin-bottom: -50px;'>
-<b style='font-size: 15px;'>Welcome! This function generates configuration for วเลส protocol. If you found this useful, please check our GitHub project for more:</b>
-<b style='font-size: 15px;'>欢迎！这是生成 วเลส 协议的配置。如果您发现这个项目很好用，请查看我们的 GitHub 项目给我一个star：</b>
-<a href='https://github.com/3Kmfi6HP/EDtunnel' target='_blank'>EDtunnel - https://github.com/3Kmfi6HP/EDtunnel</a>
-<iframe src='https://ghbtns.com/github-btn.html?user=USERNAME&repo=REPOSITORY&type=star&count=true&size=large' frameborder='0' scrolling='0' width='170' height='30' title='GitHub'></iframe>
-<table>
-  <thead>
-    <tr>
-      <th>BEST IP</th>
-      <th>SUB</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><a href='${subbestip}' target='_blank'>优选IP自动节点订阅</a></td>
-      <td><a href='//${hostName}/sub/${userIDArray[0]}' target='_blank'>节点订阅连接</a></td>
-    </tr>
-    <tr>
-      <td><a href='clash://install-config?url=${encodeURIComponent(subbestip)}' target='_blank'>Clash优选IP自动</a></td>
-      <td><a href='clash://install-config?url=${encodeURIComponent(`https://${hostName}/sub/${userIDArray[0]}?format=clash`)}}' target='_blank'>Clash for Windows 节点订阅连接</a></td>
-    </tr>
-    <tr>
-      <td><a href='sing-box://import-remote-profile?url=${encodeURIComponent(subbestip)}' target='_blank'>singbox优选IP自动</a></td>
-    </tr>
-    <tr>
-      <td><a href='sn://subscription?url=${encodeURIComponent(subbestip)}' target='_blank'>nekobox优选IP自动</a></td>
-    </tr>
-    <tr>
-      <td><a href='v2rayng://install-config?url=${encodeURIComponent(subbestip)}' target='_blank'>v2rayNG优选IP自动</a></td>
-    </tr>
-	<tr>
-	  <td><a href='${clash_link}' target='_blank'>Clash 节点订阅连接</a></td>
-	</tr>
-  </tbody>
-</table>`;
+		<p align='center'><img src='https://cloudflare-ipfs.com/ipfs/bafybeigd6i5aavwpr6wvnwuyayklq3omonggta4x2q7kpmgafj357nkcky' alt='图片描述' style='margin-bottom: -50px;'>
+		<b style='font-size: 15px;'>Welcome! This function generates configuration for วเลส protocol. If you found this useful, please check our GitHub project for more:</b>
+		<b style='font-size: 15px;'>欢迎！这是生成 วเลส 协议的配置。如果您发现这个项目很好用，请查看我们的 GitHub 项目给我一个star：</b>
+		<a href='https://github.com/3Kmfi6HP/EDtunnel' target='_blank'>EDtunnel - https://github.com/3Kmfi6HP/EDtunnel</a>
+		<iframe src='https://ghbtns.com/github-btn.html?user=USERNAME&repo=REPOSITORY&type=star&count=true&size=large' frameborder='0' scrolling='0' width='170' height='30' title='GitHub'></iframe>
+		<table>
+		  <thead>
+		    <tr>
+		  	  <th>SUB BEST IP</th>
+		      <th>SUB</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+			<tr>
+			  <td><a href='${subbestip}' target='_blank'>优选IP自动节点订阅</a></td>
+			  <td><a href='//${hostName}/sub/${userIDArray[0]}' target='_blank'>节点订阅连接</a></td>
+			</tr>
+		 	<tr>
+			  <td><a href='clash://install-config?url=${encodeURIComponent(subbestip)}' target='_blank'>Clash优选IP自动</a></td>
+		  	  <td><a href='clash://install-config?url=${encodeURIComponent(`https://${hostName}/sub/${userIDArray[0]}?format=clash`)}}' target='_blank'>Clash for Windows 节点订阅连接</a></td>
+			</tr>
+			<tr>
+			  <td><a href='sing-box://import-remote-profile?url=${encodeURIComponent(subbestip)}' target='_blank'>singbox优选IP自动</a></td>
+			</tr>
+			<tr>
+			  <td><a href='sn://subscription?url=${encodeURIComponent(subbestip)}' target='_blank'>nekobox优选IP自动</a></td>
+			</tr>
+			<tr>
+			  <td><a href='v2rayng://install-config?url=${encodeURIComponent(subbestip)}' target='_blank'>v2rayNG优选IP自动</a></td>
+			</tr>
+			<tr>
+			  <td><a href='${clash_link}' target='_blank'>Clash 节点订阅连接</a></td>
+			</tr>
+		  </tbody>
+		</table>
+	`;
 
 	// HTML Head with CSS and FontAwesome library
 	const htmlHead = `
-  <head>
-	<title>EDtunnel: วเลส configuration</title>
-	<meta name='description' content='This is a tool for generating วเลส protocol configurations. Give us a star on GitHub https://github.com/3Kmfi6HP/EDtunnel if you found it useful!'>
-	<meta name='keywords' content='EDtunnel, cloudflare pages, cloudflare worker, severless'>
-	<meta name='viewport' content='width=device-width, initial-scale=1'>
-	<meta property='og:site_name' content='EDtunnel: วเลส configuration' />
-	<meta property='og:type' content='website' />
-	<meta property='og:title' content='EDtunnel - วเลส configuration and subscribe output' />
-	<meta property='og:description' content='Use cloudflare pages and worker severless to implement วเลส protocol' />
-	<meta property='og:url' content='https://${hostName}/' />
-	<meta property='og:image' content='https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(`วเลส://${userIDs.split(",")[0]}@${hostName}${commonUrlPart}`)}' />
-	<meta name='twitter:card' content='summary_large_image' />
-	<meta name='twitter:title' content='EDtunnel - วเลส configuration and subscribe output' />
-	<meta name='twitter:description' content='Use cloudflare pages and worker severless to implement วเลส protocol' />
-	<meta name='twitter:url' content='https://${hostName}/' />
-	<meta name='twitter:image' content='https://cloudflare-ipfs.com/ipfs/bafybeigd6i5aavwpr6wvnwuyayklq3omonggta4x2q7kpmgafj357nkcky' />
-	<meta property='og:image:width' content='1500' />
-	<meta property='og:image:height' content='1500' />
+		<head>
+			<title>EDtunnel: วเลส configuration</title>
+			<meta name='description' content='This is a tool for generating วเลส protocol configurations. Give us a star on GitHub https://github.com/3Kmfi6HP/EDtunnel if you found it useful!'>
+			<meta name='keywords' content='EDtunnel, cloudflare pages, cloudflare worker, severless'>
+			<meta name='viewport' content='width=device-width, initial-scale=1'>
+			<meta property='og:site_name' content='EDtunnel: วเลส configuration' />
+			<meta property='og:type' content='website' />
+			<meta property='og:title' content='EDtunnel - วเลส configuration and subscribe output' />
+			<meta property='og:description' content='Use cloudflare pages and worker severless to implement วเลส protocol' />
+			<meta property='og:url' content='https://${hostName}/' />
+			<meta property='og:image' content='https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(`วเลส://${userIDs.split(",")[0]}@${hostName}${commonUrlPart}`)}' />
+			<meta name='twitter:card' content='summary_large_image' />
+			<meta name='twitter:title' content='EDtunnel - วเลส configuration and subscribe output' />
+			<meta name='twitter:description' content='Use cloudflare pages and worker severless to implement วเลส protocol' />
+			<meta name='twitter:url' content='https://${hostName}/' />
+			<meta name='twitter:image' content='https://cloudflare-ipfs.com/ipfs/bafybeigd6i5aavwpr6wvnwuyayklq3omonggta4x2q7kpmgafj357nkcky' />
+			<meta property='og:image:width' content='1500' />
+			<meta property='og:image:height' content='1500' />
 
-	<style>
-	input {
-		border: none;
-		background-color: transparent;
-		outline: none; /* 点击时不显示轮廓 */
-		width: 100%; /* 填满单元格宽度 */
-	}
+			<style>
+				input {
+					border: none;
+					background-color: transparent;
+					outline: none; /* 点击时不显示轮廓 */
+					width: 100%; /* 填满单元格宽度 */
+				}
 
-	table {
-		width: 100%;
-		border-collapse: collapse; 
-		border: 1px solid #ddd; 
-	}
+				table {
+					width: 100%;
+					border-collapse: collapse; 
+					border: 1px solid #ddd; 
+				}
 
-	th, td {
-		padding: 8px; 
-		border: 1px solid #ddd; 
-		text-align: left; 
-	}
+				th, td {
+					padding: 8px; 
+					border: 1px solid #ddd; 
+					text-align: left; 
+				}
 
-	thead {
-		background-color: #f2f2f2; 
-	}
+				thead {
+					background-color: #f2f2f2; 
+				}
 
-	tr:nth-child(odd) {
-		background-color: #fff; 
-	}
+				tr:nth-child(odd) {
+					background-color: #fff; 
+				}
 
-	tr:nth-child(even) {
-		background-color: #f9f9f9; 
-	}
-	body {
-	  	font-family: Arial, sans-serif;
-	  	background-color: #f0f0f0;
-	  	color: #333;
-	 	padding: 10px;
-	}
+				tr:nth-child(even) { 
+					background-color: #f9f9f9; 
+				}
+				
+				body {
+					font-family: Arial, sans-serif;
+					background-color: #f0f0f0;
+					color: #333;
+					padding: 10px;
+				}
 
-	a {
-		color: #1a0dab;
-		text-decoration: none;
-	}
-	img {
-		max-width: 100%;
-		height: auto;
-	}
+				a {
+					color: #1a0dab;
+					text-decoration: none;
+				}
+				
+				img {
+					max-width: 100%;
+					height: auto;
+				}
 
-	pre {
-		white-space: pre-wrap;
-		word-wrap: break-word;
-		background-color: #fff;
-		border: 1px solid #ddd;
-		padding: 15px;
-		margin: 10px 0;
-	}
-	/* Dark mode */
-	@media (prefers-color-scheme: dark) {
-	  body {
-		background-color: #333;
-		color: #f0f0f0;
-	  }
+				pre {
+					white-space: pre-wrap;
+					word-wrap: break-word;
+					background-color: #fff;
+					border: 1px solid #ddd;
+					padding: 15px;
+					margin: 10px 0;
+				}
+				/* Dark mode */
+				@media (prefers-color-scheme: dark) {
+					body {
+						background-color: #333;
+						color: #f0f0f0;
+					}
 
-	  a {
-		color: #9db4ff;
-	  }
+					a {
+						color: #9db4ff;
+					}
 
-	  pre {
-		background-color: #282a36;
-		border-color: #6272a4;
-	  }
-	}
-	</style>
-
-	<!-- Add FontAwesome library -->
-	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-  </head>
-  `;
-
-	// Join output with newlines, wrap inside <html> and <body>
-	return `
-  <html>
-  ${htmlHead}
-  <body>
-  <pre style='background-color: transparent; border: none;'>${header}</pre>
-  <pre>${output}</pre>
-  </body>
-  <script>
-	function copyToClipboard(text) {
-	  navigator.clipboard.writeText(text)
-		.then(() => {
-		  alert("Copied to clipboard");
-		})
-		.catch((err) => {
-		  console.error("Failed to copy to clipboard:", err);
-		});
-	}
-  </script>
-  </html>`;
+					pre {
+						background-color: #282a36;
+						border-color: #6272a4;
+					}
+				}
+			</style>
+			<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+		</html>
+	`;
 }
 
-const เซ็ตพอร์ตHttp = new Set([80, 8080, 8880, 2052, 2086, 2095, 2082]);
-const เซ็ตพอร์ตHttps = new Set([443, 8443, 2053, 2096, 2087, 2083]);
+const เซ็ ตพอร์ ตHttp = new Set([80, 8080, 8880, 2052, 2086, 2095, 2082]);
+const เซ็ ตพอร์ ตHttps = new Set([443, 8443, 2053, 2096, 2087, 2083]);
 
-function สร้างวเลสSub(ไอดีผู้ใช้_เส้นทาง, ชื่อโฮสต์) {
-	const อาร์เรย์ไอดีผู้ใช้ = ไอดีผู้ใช้_เส้นทาง.includes(',') ? ไอดีผู้ใช้_เส้นทาง.split(',') : [ไอดีผู้ใช้_เส้นทาง];
-	const ส่วนUrlทั่วไปHttp = `?encryption=none&security=none&fp=random&type=ws&host=${ชื่อโฮสต์}&path=%2F%3Fed%3D2048#`;
-	const ส่วนUrlทั่วไปHttps = `?encryption=none&security=tls&sni=${ชื่อโฮสต์}&fp=random&type=ws&host=${ชื่อโฮสต์}&path=%2F%3Fed%3D2048#`;
+function สร้ างวเลสSub(ไอดีผู้ ใช้ _เส้ นทาง, ชื่ อโฮสต์) {
+	const อาร์ เรย์ ไอดีผู้ ใช้ = ไอดีผู้ ใช้ _เส้ นทาง.includes(',') ? ไอดีผู้ ใช้ _เส้ นทาง.split(',') : [ไอดีผู้ ใช้ _เส้ นทาง];
+	const ส่ วนUrlทั่ วไปHttp = `?encryption=none&security=none&fp=random&type=ws&host=${ชื่อโฮสต์}&path=%2F%3Fed%3D2048#`;
+	const ส่ วนUrlทั่ วไปHttps = `?encryption=none&security=tls&sni=${ชื่อโฮสต์}&fp=random&type=ws&host=${ชื่อโฮสต์}&path=%2F%3Fed%3D2048#`;
 
-	const ผลลัพธ์ = อาร์เรย์ไอดีผู้ใช้.flatMap((ไอดีผู้ใช้) => {
-		const การกำหนดค่าHttp = Array.from(เซ็ตพอร์ตHttp).flatMap((พอร์ต) => {
-			if (!ชื่อโฮสต์.includes('pages.dev')) {
-				const ส่วนUrl = `${ชื่อโฮสต์}-HTTP-${พอร์ต}`;
-				const วเลสหลักHttp = atob(pt) + '://' + ไอดีผู้ใช้ + atob(at) + ชื่อโฮสต์ + ':' + พอร์ต + ส่วนUrlทั่วไปHttp + ส่วนUrl;
-				return พร็อกซีไอพีs.flatMap((พร็อกซีไอพี) => {
-					const วเลสรองHttp = atob(pt) + '://' + ไอดีผู้ใช้ + atob(at) + พร็อกซีไอพี + ':' + พอร์ต + ส่วนUrlทั่วไปHttp + ส่วนUrl + '-' + พร็อกซีไอพี + '-' + atob(ed);
-					return [วเลสหลักHttp, วเลสรองHttp];
+	const ผลลั พธ์ = อาร์ เรย์ ไอดีผู้ ใช้.flatMap((ไอดีผู้ ใช้) => {
+		const การกำหนดค่ าHttp = Array.from(เซ็ ตพอร์ ตHttp).flatMap((พอร์ ต) => {
+			if (!ชื่ อโฮสต์.includes('pages.dev')) {
+				const ส่ วนUrl = `${ชื่อโฮสต์}-HTTP-${พอร์ต}`;
+				const วเลสหลั กHttp = atob(pt) + '://' + ไอดีผู้ ใช้ + atob(at) + ชื่ อโฮสต์ + ':' + พอร์ ต + ส่ วนUrlทั่ วไปHttp + ส่ วนUrl;
+				return พร็ อกซีไอพีs.flatMap((พร็ อกซีไอพี) => {
+					const วเลสรองHttp = atob(pt) + '://' + ไอดีผู้ ใช้ + atob(at) + พร็ อกซีไอพี + ':' + พอร์ ต + ส่ วนUrlทั่ วไปHttp + ส่ วนUrl + '-' + พร็ อกซีไอพี + '-' + atob(ed);
+					return [วเลสหลั กHttp, วเลสรองHttp];
 				});
 			}
 			return [];
 		});
 
-		const การกำหนดค่าHttps = Array.from(เซ็ตพอร์ตHttps).flatMap((พอร์ต) => {
-			const ส่วนUrl = `${ชื่อโฮสต์}-HTTPS-${พอร์ต}`;
-			const วเลสหลักHttps = atob(pt) + '://' + ไอดีผู้ใช้ + atob(at) + ชื่อโฮสต์ + ':' + พอร์ต + ส่วนUrlทั่วไปHttps + ส่วนUrl;
-			return พร็อกซีไอพีs.flatMap((พร็อกซีไอพี) => {
-				const วเลสรองHttps = atob(pt) + '://' + ไอดีผู้ใช้ + atob(at) + พร็อกซีไอพี + ':' + พอร์ต + ส่วนUrlทั่วไปHttps + ส่วนUrl + '-' + พร็อกซีไอพี + '-' + atob(ed);
-				return [วเลสหลักHttps, วเลสรองHttps];
+		const การกำหนดค่ าHttps = Array.from(เซ็ ตพอร์ ตHttps).flatMap((พอร์ ต) => {
+			const ส่ วนUrl = `${ชื่อโฮสต์}-HTTPS-${พอร์ต}`;
+			const วเลสหลั กHttps = atob(pt) + '://' + ไอดีผู้ ใช้ + atob(at) + ชื่ อโฮสต์ + ':' + พอร์ ต + ส่ วนUrlทั่ วไปHttps + ส่ วนUrl;
+			return พร็ อกซีไอพีs.flatMap((พร็ อกซีไอพี) => {
+				const วเลสรองHttps = atob(pt) + '://' + ไอดีผู้ ใช้ + atob(at) + พร็ อกซีไอพี + ':' + พอร์ ต + ส่ วนUrlทั่ วไปHttps + ส่ วนUrl + '-' + พร็ อกซีไอพี + '-' + atob(ed);
+				return [วเลสหลั กHttps, วเลสรองHttps];
 			});
 		});
 
-		return [...การกำหนดค่าHttp, ...การกำหนดค่าHttps];
+		return [...การกำหนดค่ าHttp, ...การกำหนดค่ าHttps];
 	});
 
-	return ผลลัพธ์.join('\n');
+	return ผลลั พธ์.join('\n');
 }
 
 const cn_hostnames = [
-	'www.baidu.com'            // Baidu - The largest search engine in China
+	'www.baidu.com' // Baidu - The largest search engine in China
 ];
