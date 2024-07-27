@@ -711,12 +711,12 @@ function getวเลสConfig(userIDs, hostName) {
 		const วเลสSec = atob(pt) + '://' + userID + atob(at) + พร็อกซีไอพี + commonUrlPart;
 		return `<h2>UUID: ${userID}</h2>${hashSeparator}\nv2ray default ip
 ---------------------------------------------------------------
-${วเลสMain}
+<input type="text" value="${วเลสMain}" readonly>
 <button onclick='copyToClipboard("${วเลสMain}")'><i class="fa fa-clipboard"></i> Copy วเลสMain</button>
 ---------------------------------------------------------------
 v2ray with bestip
 ---------------------------------------------------------------
-${วเลสSec}
+<input type="text" value="${วเลสSec}" readonly>
 <button onclick='copyToClipboard("${วเลสSec}")'><i class="fa fa-clipboard"></i> Copy วเลสSec</button>
 ---------------------------------------------------------------`;
 	}).join('\n');
