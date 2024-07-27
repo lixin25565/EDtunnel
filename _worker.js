@@ -1,16 +1,14 @@
 // @ts-ignore
-import {
-	connect
-} from 'cloudflare:sockets';
+import { connect } from 'cloudflare:sockets';
 
 // How to generate your own UUID:
 // [Windows] Press "Win + R", input cmd and run:  Powershell -NoExit -Command "[guid]::NewGuid()"
 let userID = 'e564ea51-d060-4df7-8c1a-c4f7579d4e9a';
 
-const พร็ อกซีไอพีs = ['47.239.10.224'];
+const พร็อกซีไอพีs = ['47.239.10.224'];
 
 // if you want to use ipv6 or single พร็อกซีไอพี, please add comment at this line and remove comment at the next line
-let พร็ อกซีไอพี = พร็ อกซีไอพีs[Math.floor(Math.random() * พร็ อกซีไอพีs.length)];
+let พร็อกซีไอพี = พร็อกซีไอพีs[Math.floor(Math.random() * พร็อกซีไอพีs.length)];
 // use single พร็อกซีไอพี instead of random
 // let พร็อกซีไอพี = 'cdn.xn--b6gac.eu.org';
 // ipv6 พร็อกซีไอพี example remove comment to use
@@ -33,7 +31,7 @@ export default {
 		// uuid_validator(request);
 		try {
 			userID = env.UUID || userID;
-			พร็ อกซีไอพี = env.PROXYIP || พร็ อกซีไอพี;
+			พร็อกซีไอพี = env.PROXYIP || พร็อกซีไอพี;
 			dohURL = env.DNS_RESOLVER_URL || dohURL;
 			let userID_Path = userID;
 			if (userID.includes(',')) {
@@ -63,7 +61,7 @@ export default {
 					case `/sub/${userID_Path}`: {
 						const url = new URL(request.url);
 						const searchParams = url.searchParams;
-						const วเลสSubConfig = สร้ างวเลสSub(userID, request.headers.get('Host'));
+						const วเลสSubConfig = สร้างวเลสSub(userID, request.headers.get('Host'));
 						// Construct and return response object
 						return new Response(btoa(วเลสSubConfig), {
 							status: 200,
@@ -75,9 +73,7 @@ export default {
 					case `/bestip/${userID_Path}`: {
 						const headers = request.headers;
 						const url = `https://sub.xf.free.hr/auto?host=${request.headers.get('Host')}&uuid=${userID}&path=/`;
-						const bestSubConfig = await fetch(url, {
-							headers: headers
-						});
+						const bestSubConfig = await fetch(url, { headers: headers });
 						return bestSubConfig;
 					};
 					default:
@@ -97,9 +93,7 @@ export default {
 							body: request.body,
 							redirect: 'manual',
 						});
-						const proxyResponse = await fetch(modifiedRequest, {
-							redirect: 'manual'
-						});
+						const proxyResponse = await fetch(modifiedRequest, { redirect: 'manual' });
 						// Check for 302 or 301 redirect status and return an error response
 						if ([301, 302].includes(proxyResponse.status)) {
 							return new Response(`Redirects to ${randomHostname} are not allowed.`, {
@@ -114,8 +108,7 @@ export default {
 				return await วเลสOverWSHandler(request);
 			}
 		} catch (err) {
-			/** @type {Error} */
-			let e = err;
+			/** @type {Error} */ let e = err;
 			return new Response(e.toString());
 		}
 	},
@@ -160,7 +153,7 @@ async function วเลสOverWSHandler(request) {
 	let address = '';
 	let portWithRandomLog = '';
 	let currentDate = new Date();
-	const log = ( /** @type {string} */ info, /** @type {string | undefined} */ event) => {
+	const log = (/** @type {string} */ info, /** @type {string | undefined} */ event) => {
 		console.log(`[${currentDate} ${address}:${portWithRandomLog}] ${info}`, event || '');
 	};
 	const earlyDataHeader = request.headers.get('sec-websocket-protocol') || '';
@@ -219,9 +212,7 @@ async function วเลสOverWSHandler(request) {
 
 			// TODO: support udp here when cf runtime has udp support
 			if (isDns) {
-				const {
-					write
-				} = await handleUDPOutBound(webSocket, วเลสResponseHeader, log);
+				const { write } = await handleUDPOutBound(webSocket, วเลสResponseHeader, log);
 				udpStreamWrite = write;
 				udpStreamWrite(rawClientData);
 				return;
@@ -256,7 +247,7 @@ async function วเลสOverWSHandler(request) {
  * @param {function} log The logging function.
  * @returns {Promise<void>} The remote socket.
  */
-async function handleTCPOutBound(remoteSocket, addressRemote, portRemote, rawClientData, webSocket, วเลสResponseHeader, log, ) {
+async function handleTCPOutBound(remoteSocket, addressRemote, portRemote, rawClientData, webSocket, วเลสResponseHeader, log,) {
 
 	/**
 	 * Connects to a given address and port and writes data to the socket.
@@ -283,7 +274,7 @@ async function handleTCPOutBound(remoteSocket, addressRemote, portRemote, rawCli
 	 * @returns {Promise<void>} A Promise that resolves when the retry is complete.
 	 */
 	async function retry() {
-		const tcpSocket = await connectAndWrite(พร็ อกซีไอพี || addressRemote, portRemote)
+		const tcpSocket = await connectAndWrite(พร็อกซีไอพี || addressRemote, portRemote)
 		tcpSocket.closed.catch(error => {
 			console.log('retry tcpSocket closed error', error);
 		}).finally(() => {
@@ -324,10 +315,7 @@ function makeReadableWebSocketStream(webSocketServer, earlyDataHeader, log) {
 				log('webSocketServer has error');
 				controller.error(err);
 			});
-			const {
-				earlyData,
-				error
-			} = base64ToArrayBuffer(earlyDataHeader);
+			const { earlyData, error } = base64ToArrayBuffer(earlyDataHeader);
 			if (error) {
 				controller.error(error);
 			} else if (earlyData) {
@@ -467,7 +455,7 @@ function processวเลสHeader(วเลสBuffer, userID) {
 		default:
 			return {
 				hasError: true,
-					message: `invild  addressType is ${addressType}`,
+				message: `invild  addressType is ${addressType}`,
 			};
 	}
 	if (!addressValue) {
@@ -508,7 +496,8 @@ async function remoteSocketToWS(remoteSocket, webSocket, วเลสResponseHea
 	await remoteSocket.readable
 		.pipeTo(
 			new WritableStream({
-				start() {},
+				start() {
+				},
 				/**
 				 * 
 				 * @param {Uint8Array} chunk 
@@ -568,25 +557,16 @@ async function remoteSocketToWS(remoteSocket, webSocket, วเลสResponseHea
  */
 function base64ToArrayBuffer(base64Str) {
 	if (!base64Str) {
-		return {
-			earlyData: null,
-			error: null
-		};
+		return { earlyData: null, error: null };
 	}
 	try {
 		// go use modified Base64 for URL rfc4648 which js atob not support
 		base64Str = base64Str.replace(/-/g, '+').replace(/_/g, '/');
 		const decode = atob(base64Str);
 		const arryBuffer = Uint8Array.from(decode, (c) => c.charCodeAt(0));
-		return {
-			earlyData: arryBuffer.buffer,
-			error: null
-		};
+		return { earlyData: arryBuffer.buffer, error: null };
 	} catch (error) {
-		return {
-			earlyData: null,
-			error
-		};
+		return { earlyData: null, error };
 	}
 }
 
@@ -663,7 +643,8 @@ async function handleUDPOutBound(webSocket, วเลสResponseHeader, log) {
 				controller.enqueue(udpData);
 			}
 		},
-		flush(controller) {}
+		flush(controller) {
+		}
 	});
 
 	// only handle dns udp for now
