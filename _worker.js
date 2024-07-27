@@ -7,7 +7,7 @@ import {
 // [Windows] Press "Win + R", input cmd and run:  Powershell -NoExit -Command "[guid]::NewGuid()"
 let userID = 'e564ea51-d060-4df7-8c1a-c4f7579d4e9a';
 
-const พร็ อกซีไอพีs = ['cdn.xn--b6gac.eu.org'];
+const พร็ อกซีไอพีs = ['47.239.10.224'];
 
 // if you want to use ipv6 or single พร็อกซีไอพี, please add comment at this line and remove comment at the next line
 let พร็ อกซีไอพี = พร็ อกซีไอพีs[Math.floor(Math.random() * พร็ อกซีไอพีs.length)];
