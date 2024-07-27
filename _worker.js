@@ -761,45 +761,172 @@ ${วเลสSec}
 	<meta property='og:image:height' content='1500' />
 
 	<style>
-	body {
-	  font-family: Arial, sans-serif;
-	  background-color: #f0f0f0;
-	  color: #333;
-	  padding: 10px;
-	}
+	// body {
+	//   font-family: Arial, sans-serif;
+	//   background-color: #f0f0f0;
+	//   color: #333;
+	//   padding: 10px;
+	// }
 
+	// a {
+	//   color: #1a0dab;
+	//   text-decoration: none;
+	// }
+	// img {
+	//   max-width: 100%;
+	//   height: auto;
+	// }
+
+	// pre {
+	//   white-space: pre-wrap;
+	//   word-wrap: break-word;
+	//   background-color: #fff;
+	//   border: 1px solid #ddd;
+	//   padding: 15px;
+	//   margin: 10px 0;
+	// }
+	// /* Dark mode */
+	// @media (prefers-color-scheme: dark) {
+	//   body {
+	// 	background-color: #333;
+	// 	color: #f0f0f0;
+	//   }
+
+	//   a {
+	// 	color: #9db4ff;
+	//   }
+
+	//   pre {
+	// 	background-color: #282a36;
+	// 	border-color: #6272a4;
+	//   }
+	// }
+	 /* 重置和基础样式 */
+	* {
+	    margin: 0;
+	    padding: 0;
+	    box-sizing: border-box;
+	}
+	
+	body, html {
+	    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	    line-height: 1.6;
+	    background-color: #f7f9fc;
+	    color: #333;
+	    padding: 20px;
+	}
+	
 	a {
-	  color: #1a0dab;
-	  text-decoration: none;
+	    color: #007bff;
+	    text-decoration: none;
 	}
-	img {
-	  max-width: 100%;
-	  height: auto;
+	
+	a:hover {
+	    text-decoration: underline;
 	}
-
-	pre {
-	  white-space: pre-wrap;
-	  word-wrap: break-word;
-	  background-color: #fff;
-	  border: 1px solid #ddd;
-	  padding: 15px;
-	  margin: 10px 0;
+	
+	/* 页眉样式 */
+	.header {
+	    background-color: #35424a;
+	    color: #ffffff;
+	    padding: 20px 0;
+	    text-align: center;
 	}
-	/* Dark mode */
-	@media (prefers-color-scheme: dark) {
-	  body {
-		background-color: #333;
-		color: #f0f0f0;
-	  }
-
-	  a {
-		color: #9db4ff;
-	  }
-
-	  pre {
-		background-color: #282a36;
-		border-color: #6272a4;
-	  }
+	
+	.header h1 {
+	    margin: 0;
+	    font-size: 2.5rem;
+	}
+	
+	/* 容器和内容区域样式 */
+	.container {
+	    width: 80%;
+	    margin: 40px auto;
+	    background: #fff;
+	    border-radius: 8px;
+	    padding: 40px;
+	    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+	}
+	
+	.content {
+	    margin-bottom: 40px;
+	}
+	
+	/* 配置列表和项样式 */
+	.config-list {
+	    list-style-type: none;
+	}
+	
+	.config-item {
+	    border-bottom: 1px solid #e9ecef;
+	    padding: 20px 0;
+	}
+	
+	.config-item:last-child {
+	    border-bottom: none;
+	}
+	
+	.config-title {
+	    font-size: 1.5rem;
+	    margin-bottom: 10px;
+	}
+	
+	.config-content {
+	    background-color: #eef;
+	    padding: 20px;
+	    border-radius: 5px;
+	    margin-bottom: 10px;
+	    position: relative;
+	}
+	
+	/* 按钮和复制消息样式 */
+	.button {
+	    background-color: #007bff;
+	    color: white;
+	    padding: 10px 15px;
+	    border: none;
+	    border-radius: 5px;
+	    cursor: pointer;
+	    transition: background-color 0.3s ease;
+	    margin-right: 10px;
+	}
+	
+	.button:hover {
+	    background-color: #0056b3;
+	}
+	
+	.copy-message {
+	    display: none;
+	    position: absolute;
+	    top: 5px;
+	    right: 10px;
+	    color: #5cb85c;
+	    font-size: 0.8rem;
+	}
+	
+	/* 页脚样式 */
+	.footer {
+	    text-align: center;
+	    padding: 20px 0;
+	    background-color: #333;
+	    color: #fff;
+	    width: 100%;
+	}
+	
+	/* 响应式设计 */
+	@media (max-width: 768px) {
+	    .container {
+	        width: 95%;
+	        padding: 20px;
+	    }
+	
+	    .header h1 {
+	        font-size: 2rem;
+	    }
+	
+	    .config-title {
+	        font-size: 1.2rem;
+	    }
 	}
 	</style>
 
