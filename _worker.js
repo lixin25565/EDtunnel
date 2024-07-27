@@ -872,41 +872,42 @@ function getวเลสConfig(userIDs, hostName) {
 	`;
 }
 
-const เซ็ ตพอร์ ตHttp = new Set([80, 8080, 8880, 2052, 2086, 2095, 2082]);
-const เซ็ ตพอร์ ตHttps = new Set([443, 8443, 2053, 2096, 2087, 2083]);
+const เซ็ตพอร์ตHttp = new Set([80, 8080, 8880, 2052, 2086, 2095, 2082]);
+const เซ็ตพอร์ตHttps = new Set([443, 8443, 2053, 2096, 2087, 2083]);
 
-function สร้ างวเลสSub(ไอดีผู้ ใช้ _เส้ นทาง, ชื่ อโฮสต์) {
-	const อาร์ เรย์ ไอดีผู้ ใช้ = ไอดีผู้ ใช้ _เส้ นทาง.includes(',') ? ไอดีผู้ ใช้ _เส้ นทาง.split(',') : [ไอดีผู้ ใช้ _เส้ นทาง];
-	const ส่ วนUrlทั่ วไปHttp = `?encryption=none&security=none&fp=random&type=ws&host=${ชื่อโฮสต์}&path=%2F%3Fed%3D2048#`;
-	const ส่ วนUrlทั่ วไปHttps = `?encryption=none&security=tls&sni=${ชื่อโฮสต์}&fp=random&type=ws&host=${ชื่อโฮสต์}&path=%2F%3Fed%3D2048#`;
+function สร้างวเลสSub(ไอดีผู้ใช้_เส้นทาง, ชื่อโฮสต์) {
+	const อาร์เรย์ไอดีผู้ใช้ = ไอดีผู้ใช้_เส้นทาง.includes(',') ? ไอดีผู้ใช้_เส้นทาง.split(',') : [ไอดีผู้ใช้_เส้นทาง];
+	const ส่วนUrlทั่วไปHttp = `?encryption=none&security=none&fp=random&type=ws&host=${ชื่อโฮสต์}&path=%2F%3Fed%3D2048#`;
+	const ส่วนUrlทั่วไปHttps = `?encryption=none&security=tls&sni=${ชื่อโฮสต์}&fp=random&type=ws&host=${ชื่อโฮสต์}&path=%2F%3Fed%3D2048#`;
 
-	const ผลลั พธ์ = อาร์ เรย์ ไอดีผู้ ใช้.flatMap((ไอดีผู้ ใช้) => {
-		const การกำหนดค่ าHttp = Array.from(เซ็ ตพอร์ ตHttp).flatMap((พอร์ ต) => {
-			if (!ชื่ อโฮสต์.includes('pages.dev')) {
-				const ส่ วนUrl = `${ชื่อโฮสต์}-HTTP-${พอร์ต}`;
-				const วเลสหลั กHttp = atob(pt) + '://' + ไอดีผู้ ใช้ + atob(at) + ชื่ อโฮสต์ + ':' + พอร์ ต + ส่ วนUrlทั่ วไปHttp + ส่ วนUrl;
-				return พร็ อกซีไอพีs.flatMap((พร็ อกซีไอพี) => {
-					const วเลสรองHttp = atob(pt) + '://' + ไอดีผู้ ใช้ + atob(at) + พร็ อกซีไอพี + ':' + พอร์ ต + ส่ วนUrlทั่ วไปHttp + ส่ วนUrl + '-' + พร็ อกซีไอพี + '-' + atob(ed);
-					return [วเลสหลั กHttp, วเลสรองHttp];
+	const ผลลัพธ์ = อาร์เรย์ไอดีผู้ใช้.flatMap((ไอดีผู้ใช้) => {
+		const การกำหนดค่าHttp = Array.from(เซ็ตพอร์ตHttp).flatMap((พอร์ต) => {
+			if (!ชื่อโฮสต์.includes('pages.dev')) {
+				const ส่วนUrl = `${ชื่อโฮสต์}-HTTP-${พอร์ต}`;
+				const วเลสหลักHttp = atob(pt) + '://' + ไอดีผู้ใช้ + atob(at) + ชื่อโฮสต์ + ':' + พอร์ต + ส่วนUrlทั่วไปHttp + ส่วนUrl;
+				return พร็อกซีไอพีs.flatMap((พร็อกซีไอพี) => {
+					const วเลสรองHttp = atob(pt) + '://' + ไอดีผู้ใช้ + atob(at) + พร็อกซีไอพี + ':' + พอร์ต + ส่วนUrlทั่วไปHttp + ส่วนUrl + '-' + พร็อกซีไอพี + '-' + atob(ed);
+					return [วเลสหลักHttp, วเลสรองHttp];
 				});
 			}
 			return [];
 		});
 
-		const การกำหนดค่ าHttps = Array.from(เซ็ ตพอร์ ตHttps).flatMap((พอร์ ต) => {
-			const ส่ วนUrl = `${ชื่อโฮสต์}-HTTPS-${พอร์ต}`;
-			const วเลสหลั กHttps = atob(pt) + '://' + ไอดีผู้ ใช้ + atob(at) + ชื่ อโฮสต์ + ':' + พอร์ ต + ส่ วนUrlทั่ วไปHttps + ส่ วนUrl;
-			return พร็ อกซีไอพีs.flatMap((พร็ อกซีไอพี) => {
-				const วเลสรองHttps = atob(pt) + '://' + ไอดีผู้ ใช้ + atob(at) + พร็ อกซีไอพี + ':' + พอร์ ต + ส่ วนUrlทั่ วไปHttps + ส่ วนUrl + '-' + พร็ อกซีไอพี + '-' + atob(ed);
-				return [วเลสหลั กHttps, วเลสรองHttps];
+		const การกำหนดค่าHttps = Array.from(เซ็ตพอร์ตHttps).flatMap((พอร์ต) => {
+			const ส่วนUrl = `${ชื่อโฮสต์}-HTTPS-${พอร์ต}`;
+			const วเลสหลักHttps = atob(pt) + '://' + ไอดีผู้ใช้ + atob(at) + ชื่อโฮสต์ + ':' + พอร์ต + ส่วนUrlทั่วไปHttps + ส่วนUrl;
+			return พร็อกซีไอพีs.flatMap((พร็อกซีไอพี) => {
+				const วเลสรองHttps = atob(pt) + '://' + ไอดีผู้ใช้ + atob(at) + พร็อกซีไอพี + ':' + พอร์ต + ส่วนUrlทั่วไปHttps + ส่วนUrl + '-' + พร็อกซีไอพี + '-' + atob(ed);
+				return [วเลสหลักHttps, วเลสรองHttps];
 			});
 		});
 
-		return [...การกำหนดค่ าHttp, ...การกำหนดค่ าHttps];
+		return [...การกำหนดค่าHttp, ...การกำหนดค่าHttps];
 	});
 
-	return ผลลั พธ์.join('\n');
+	return ผลลัพธ์.join('\n');
 }
+
 
 const cn_hostnames = [
 	'www.baidu.com' // Baidu - The largest search engine in China
