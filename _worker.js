@@ -709,16 +709,23 @@ function getวเลสConfig(userIDs, hostName) {
 	const output = userIDArray.map((userID) => {
 		const วเลสMain = atob(pt) + '://' + userID + atob(at) + hostName + commonUrlPart;
 		const วเลสSec = atob(pt) + '://' + userID + atob(at) + พร็อกซีไอพี + commonUrlPart;
-		return `<h2>UUID: ${userID}</h2>${hashSeparator}\nv2ray default ip
----------------------------------------------------------------
-<input type="text" value="${วเลสMain}" readonly>
-<button onclick='copyToClipboard("${วเลสMain}")'><i class="fa fa-clipboard"></i> Copy วเลสMain</button>
----------------------------------------------------------------
-v2ray with bestip
----------------------------------------------------------------
-<input type="text" value="${วเลสSec}" readonly>
-<button onclick='copyToClipboard("${วเลสSec}")'><i class="fa fa-clipboard"></i> Copy วเลสSec</button>
----------------------------------------------------------------`;
+		return `<h2>UUID: ${userID}</h2>${hashSeparator}\n
+<table>
+  <thead>
+	<tr>
+	  <th>v2ray default ip</th>
+	  <th>v2ray with bestip</th>
+	  <th>copy</th>
+	</tr>
+	<tr>
+	  <td><input type="text" value="${วเลสMain}" readonly></td>
+	  <td><input type="text" value="${วเลสSec}" readonly></td>
+	</tr>
+	<tr>
+	  <td><button onclick='copyToClipboard("${วเลสMain}")'><i class="fa fa-clipboard"></i> Copy วเลสMain </button></td>
+	  <td><button onclick='copyToClipboard("${วเลสSec}")'><i class="fa fa-clipboard"></i> Copy วเลสSec </button></td>
+	</tr>
+`;
 	}).join('\n');
 	const sublink = `https://${hostName}/sub/${userIDArray[0]}?format=clash`
 	const subbestip = `https://${hostName}/bestip/${userIDArray[0]}`;
