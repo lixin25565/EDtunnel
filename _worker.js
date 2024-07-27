@@ -768,6 +768,9 @@ ${วเลสSec}
     <tr>
       <td><a href='v2rayng://install-config?url=${encodeURIComponent(subbestip)}' target='_blank'>v2rayNG优选IP自动</a></td>
     </tr>
+	<tr>
+	  <td><a href='${clash_link}' target='_blank'>Clash 节点订阅连接</a></td>
+	</tr>
   </tbody>
 </table>`;
 
