@@ -715,7 +715,6 @@ function getวเลสConfig(userIDs, hostName) {
 	<tr>
 	  <th>v2ray default ip</th>
 	  <th>v2ray with bestip</th>
-	  <th>copy</th>
 	</tr>
 	<tr>
 	  <td><input type="text" value="${วเลสMain}" readonly></td>
@@ -790,6 +789,13 @@ function getวเลสConfig(userIDs, hostName) {
 	<meta property='og:image:height' content='1500' />
 
 	<style>
+	input {
+		border: none;
+		background-color: transparent;
+		outline: none; /* 点击时不显示轮廓 */
+		width: 100%; /* 填满单元格宽度 */
+	}
+	
 	table {
 		width: 100%;
 		border-collapse: collapse; /* 确保边框合并 */
