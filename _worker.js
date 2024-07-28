@@ -5,7 +5,7 @@ import { connect } from 'cloudflare:sockets';
 // [Windows] Press "Win + R", input cmd and run:  Powershell -NoExit -Command "[guid]::NewGuid()"
 let userID = 'e564ea51-d060-4df7-8c1a-c4f7579d4e9a';
 
-const พร็อกซีไอพีs = ['47.239.10.224'];
+const พร็อกซีไอพีs = ['8.219.110.248'];
 
 // if you want to use ipv6 or single พร็อกซีไอพี, please add comment at this line and remove comment at the next line
 let พร็อกซีไอพี = พร็อกซีไอพีs[Math.floor(Math.random() * พร็อกซีไอพีs.length)];
@@ -14,8 +14,7 @@ let พร็อกซีไอพี = พร็อกซีไอพีs[Math.
 // ipv6 พร็อกซีไอพี example remove comment to use
 // let พร็อกซีไอพี = "[2a01:4f8:c2c:123f:64:5:6810:c55a]"
 
-let dohURL = 'https://94.140.14.14/dns-query'; // https://cloudflare-dns.com/dns-query or https://dns.google/dns-query
-
+let dohURL = 'https://dns.alidns.com/dns-query'; // https://cloudflare-dns.com/dns-query or https://dns.google/dns-query
 if (!isValidUUID(userID)) {
 	throw new Error('uuid is invalid');
 }
@@ -700,7 +699,7 @@ const ed = 'RUR0dW5uZWw=';
  */
 function getวเลสConfig(userIDs, hostName) {
 	const commonUrlPart = `:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`;
-	const hashSeparator = "";
+	const hashSeparator = "################################################################";
 
 	// Split the userIDs into an array
 	const userIDArray = userIDs.split(",");
@@ -709,167 +708,125 @@ function getวเลสConfig(userIDs, hostName) {
 	const output = userIDArray.map((userID) => {
 		const วเลสMain = atob(pt) + '://' + userID + atob(at) + hostName + commonUrlPart;
 		const วเลสSec = atob(pt) + '://' + userID + atob(at) + พร็อกซีไอพี + commonUrlPart;
-		return `
-			<h2>UUID: ${userID}</h2>
-			${hashSeparator}\n
-			<table>
-			  <thead>
-				<tr>
-				  <th>v2ray default ip</th>
-				  <th>v2ray with bestip</th>
-				</tr>
-				<tr>
-				  <td><input type="text" value="${วเลสMain}" readonly></td>
-				  <td><input type="text" value="${วเลสSec}" readonly></td>
-				</tr>
-				<tr>
-					<td><button onclick='copyToClipboard("${วเลสMain}")'><i class="fa fa-clipboard"></i> Copy</button></td>
-					<td><button onclick='copyToClipboard("${วเลสSec}")'><i class="fa fa-clipboard"></i> Copy</button></td>
-				</tr>
-			  </thead>
-			</table>
-		`;
+		return `<h2>UUID: ${userID}</h2>${hashSeparator}\nv2ray default ip
+---------------------------------------------------------------
+${วเลสMain}
+<button onclick='copyToClipboard("${วเลสMain}")'><i class="fa fa-clipboard"></i> Copy วเลสMain</button>
+---------------------------------------------------------------
+v2ray with bestip
+---------------------------------------------------------------
+${วเลสSec}
+<button onclick='copyToClipboard("${วเลสSec}")'><i class="fa fa-clipboard"></i> Copy วเลสSec</button>
+---------------------------------------------------------------`;
 	}).join('\n');
 	const sublink = `https://${hostName}/sub/${userIDArray[0]}?format=clash`
 	const subbestip = `https://${hostName}/bestip/${userIDArray[0]}`;
 	const clash_link = `https://api.v1.mk/sub?target=clash&url=${encodeURIComponent(sublink)}&insert=false&emoji=true&list=false&tfo=false&scv=true&fdn=false&sort=false&new_name=true`;
 	// Prepare header string
 	const header = `
-		<p align='center'><img src='https://cloudflare-ipfs.com/ipfs/bafybeigd6i5aavwpr6wvnwuyayklq3omonggta4x2q7kpmgafj357nkcky' alt='图片描述' style='margin-bottom: -50px;'>
-		<b style='font-size: 15px;'>Welcome! This function generates configuration for วเลส protocol. If you found this useful, please check our GitHub project for more:</b>
-		<b style='font-size: 15px;'>欢迎！这是生成 วเลส 协议的配置。如果您发现这个项目很好用，请查看我们的 GitHub 项目给我一个star：</b>
-		<a href='https://github.com/3Kmfi6HP/EDtunnel' target='_blank'>EDtunnel - https://github.com/3Kmfi6HP/EDtunnel</a>
-		<iframe src='https://ghbtns.com/github-btn.html?user=USERNAME&repo=REPOSITORY&type=star&count=true&size=large' frameborder='0' scrolling='0' width='170' height='30' title='GitHub'></iframe>
-		<table>
-		  <thead>
-		    <tr>
-		  	  <th>SUB-BEST-IP</th>
-		      <th>SUB-IP</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-			<tr>
-			  <td><a href='${subbestip}' target='_blank'>优选IP自动节点订阅</a></td>
-			  <td><a href='//${hostName}/sub/${userIDArray[0]}' target='_blank'>节点订阅连接</a></td>
-			</tr>
-		 	<tr>
-			  <td><a href='clash://install-config?url=${encodeURIComponent(subbestip)}' target='_blank'>Clash优选IP自动</a></td>
-		  	  <td><a href='clash://install-config?url=${encodeURIComponent(`https://${hostName}/sub/${userIDArray[0]}?format=clash`)}}' target='_blank'>Clash for Windows 节点订阅连接</a></td>
-			</tr>
-			<tr>
-			  <td><a href='sing-box://import-remote-profile?url=${encodeURIComponent(subbestip)}' target='_blank'>singbox优选IP自动</a></td>
-			</tr>
-			<tr>
-			  <td><a href='sn://subscription?url=${encodeURIComponent(subbestip)}' target='_blank'>nekobox优选IP自动</a></td>
-			</tr>
-			<tr>
-			  <td><a href='v2rayng://install-config?url=${encodeURIComponent(subbestip)}' target='_blank'>v2rayNG优选IP自动</a></td>
-			</tr>
-			<tr>
-			  <td><a href='${clash_link}' target='_blank'>Clash 节点订阅连接</a></td>
-			</tr>
-		  </tbody>
-		</table>
-	`;
+<p align='center'><img src='https://cloudflare-ipfs.com/ipfs/bafybeigd6i5aavwpr6wvnwuyayklq3omonggta4x2q7kpmgafj357nkcky' alt='图片描述' style='margin-bottom: -50px;'>
+<b style='font-size: 15px;'>Welcome! This function generates configuration for วเลส protocol. If you found this useful, please check our GitHub project for more:</b>
+<b style='font-size: 15px;'>欢迎！这是生成 วเลส 协议的配置。如果您发现这个项目很好用，请查看我们的 GitHub 项目给我一个star：</b>
+<a href='https://github.com/3Kmfi6HP/EDtunnel' target='_blank'>EDtunnel - https://github.com/3Kmfi6HP/EDtunnel</a>
+<iframe src='https://ghbtns.com/github-btn.html?user=USERNAME&repo=REPOSITORY&type=star&count=true&size=large' frameborder='0' scrolling='0' width='170' height='30' title='GitHub'></iframe>
+<a href='//${hostName}/sub/${userIDArray[0]}' target='_blank'>วเลส 节点订阅连接</a>
+<a href='clash://install-config?url=${encodeURIComponent(`https://${hostName}/sub/${userIDArray[0]}?format=clash`)}}' target='_blank'>Clash for Windows 节点订阅连接</a>
+<a href='${clash_link}' target='_blank'>Clash 节点订阅连接</a>
+<a href='${subbestip}' target='_blank'>优选IP自动节点订阅</a>
+<a href='clash://install-config?url=${encodeURIComponent(subbestip)}' target='_blank'>Clash优选IP自动</a>
+<a href='sing-box://import-remote-profile?url=${encodeURIComponent(subbestip)}' target='_blank'>singbox优选IP自动</a>
+<a href='sn://subscription?url=${encodeURIComponent(subbestip)}' target='_blank'>nekobox优选IP自动</a>
+<a href='v2rayng://install-config?url=${encodeURIComponent(subbestip)}' target='_blank'>v2rayNG优选IP自动</a></p>`;
 
 	// HTML Head with CSS and FontAwesome library
 	const htmlHead = `
-		<head>
-			<title>EDtunnel: วเลส configuration</title>
-			<meta name='description' content='This is a tool for generating วเลส protocol configurations. Give us a star on GitHub https://github.com/3Kmfi6HP/EDtunnel if you found it useful!'>
-			<meta name='keywords' content='EDtunnel, cloudflare pages, cloudflare worker, severless'>
-			<meta name='viewport' content='width=device-width, initial-scale=1'>
-			<meta property='og:site_name' content='EDtunnel: วเลส configuration' />
-			<meta property='og:type' content='website' />
-			<meta property='og:title' content='EDtunnel - วเลส configuration and subscribe output' />
-			<meta property='og:description' content='Use cloudflare pages and worker severless to implement วเลส protocol' />
-			<meta property='og:url' content='https://${hostName}/' />
-			<meta property='og:image' content='https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(`วเลส://${userIDs.split(",")[0]}@${hostName}${commonUrlPart}`)}' />
-			<meta name='twitter:card' content='summary_large_image' />
-			<meta name='twitter:title' content='EDtunnel - วเลส configuration and subscribe output' />
-			<meta name='twitter:description' content='Use cloudflare pages and worker severless to implement วเลส protocol' />
-			<meta name='twitter:url' content='https://${hostName}/' />
-			<meta name='twitter:image' content='https://cloudflare-ipfs.com/ipfs/bafybeigd6i5aavwpr6wvnwuyayklq3omonggta4x2q7kpmgafj357nkcky' />
-			<meta property='og:image:width' content='1500' />
-			<meta property='og:image:height' content='1500' />
+  <head>
+	<title>EDtunnel: วเลส configuration</title>
+	<meta name='description' content='This is a tool for generating วเลส protocol configurations. Give us a star on GitHub https://github.com/3Kmfi6HP/EDtunnel if you found it useful!'>
+	<meta name='keywords' content='EDtunnel, cloudflare pages, cloudflare worker, severless'>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<meta property='og:site_name' content='EDtunnel: วเลส configuration' />
+	<meta property='og:type' content='website' />
+	<meta property='og:title' content='EDtunnel - วเลส configuration and subscribe output' />
+	<meta property='og:description' content='Use cloudflare pages and worker severless to implement วเลส protocol' />
+	<meta property='og:url' content='https://${hostName}/' />
+	<meta property='og:image' content='https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(`วเลส://${userIDs.split(",")[0]}@${hostName}${commonUrlPart}`)}' />
+	<meta name='twitter:card' content='summary_large_image' />
+	<meta name='twitter:title' content='EDtunnel - วเลส configuration and subscribe output' />
+	<meta name='twitter:description' content='Use cloudflare pages and worker severless to implement วเลส protocol' />
+	<meta name='twitter:url' content='https://${hostName}/' />
+	<meta name='twitter:image' content='https://cloudflare-ipfs.com/ipfs/bafybeigd6i5aavwpr6wvnwuyayklq3omonggta4x2q7kpmgafj357nkcky' />
+	<meta property='og:image:width' content='1500' />
+	<meta property='og:image:height' content='1500' />
 
-			<style>
-				input {
-					border: none;
-					background-color: transparent;
-					outline: none; /* 点击时不显示轮廓 */
-					width: 100%; /* 填满单元格宽度 */
-				}
+	<style>
+	body {
+	  font-family: Arial, sans-serif;
+	  background-color: #f0f0f0;
+	  color: #333;
+	  padding: 10px;
+	}
 
-				table {
-					width: 100%;
-					border-collapse: collapse; 
-					border: 1px solid #ddd; 
-				}
+	a {
+	  color: #1a0dab;
+	  text-decoration: none;
+	}
+	img {
+	  max-width: 100%;
+	  height: auto;
+	}
 
-				th, td {
-					padding: 8px; 
-					border: 1px solid #ddd; 
-					text-align: left; 
-				}
+	pre {
+	  white-space: pre-wrap;
+	  word-wrap: break-word;
+	  background-color: #fff;
+	  border: 1px solid #ddd;
+	  padding: 15px;
+	  margin: 10px 0;
+	}
+	/* Dark mode */
+	@media (prefers-color-scheme: dark) {
+	  body {
+		background-color: #333;
+		color: #f0f0f0;
+	  }
 
-				thead {
-					background-color: #f2f2f2; 
-				}
+	  a {
+		color: #9db4ff;
+	  }
 
-				tr:nth-child(odd) {
-					background-color: #fff; 
-				}
+	  pre {
+		background-color: #282a36;
+		border-color: #6272a4;
+	  }
+	}
+	</style>
 
-				tr:nth-child(even) { 
-					background-color: #f9f9f9; 
-				}
-				
-				body {
-					font-family: Arial, sans-serif;
-					background-color: #f0f0f0;
-					color: #333;
-					padding: 10px;
-				}
+	<!-- Add FontAwesome library -->
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+  </head>
+  `;
 
-				a {
-					color: #1a0dab;
-					text-decoration: none;
-				}
-				
-				img {
-					max-width: 100%;
-					height: auto;
-				}
-
-				pre {
-					white-space: pre-wrap;
-					word-wrap: break-word;
-					background-color: #fff;
-					border: 1px solid #ddd;
-					padding: 15px;
-					margin: 10px 0;
-				}
-				/* Dark mode */
-				@media (prefers-color-scheme: dark) {
-					body {
-						background-color: #333;
-						color: #f0f0f0;
-					}
-
-					a {
-						color: #9db4ff;
-					}
-
-					pre {
-						background-color: #282a36;
-						border-color: #6272a4;
-					}
-				}
-			</style>
-			<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-		</html>
-	`;
+	// Join output with newlines, wrap inside <html> and <body>
+	return `
+  <html>
+  ${htmlHead}
+  <body>
+  <pre style='background-color: transparent; border: none;'>${header}</pre>
+  <pre>${output}</pre>
+  </body>
+  <script>
+	function copyToClipboard(text) {
+	  navigator.clipboard.writeText(text)
+		.then(() => {
+		  alert("Copied to clipboard");
+		})
+		.catch((err) => {
+		  console.error("Failed to copy to clipboard:", err);
+		});
+	}
+  </script>
+  </html>`;
 }
 
 const เซ็ตพอร์ตHttp = new Set([80, 8080, 8880, 2052, 2086, 2095, 2082]);
@@ -908,7 +865,6 @@ function สร้างวเลสSub(ไอดีผู้ใช้_เส้
 	return ผลลัพธ์.join('\n');
 }
 
-
 const cn_hostnames = [
-	'www.baidu.com' // Baidu - The largest search engine in China
+	'www.baidu.com'          // Baidu - The largest search engine in China
 ];
