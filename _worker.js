@@ -5,7 +5,7 @@ import { connect } from 'cloudflare:sockets';
 // [Windows] Press "Win + R", input cmd and run:  Powershell -NoExit -Command "[guid]::NewGuid()"
 let userID = 'e564ea51-d060-4df7-8c1a-c4f7579d4e9a';
 
-const พร็อกซีไอพีs = ['146.70.175.116'];
+const พร็อกซีไอพีs = ['146.70.175.104'];
 // ips：146.70.175.116；146.70.175.112；146.70.175.101；146.70.175.111；146.70.175.104
 
 // if you want to use ipv6 or single พร็อกซีไอพี, please add comment at this line and remove comment at the next line
@@ -15,7 +15,7 @@ let พร็อกซีไอพี = พร็อกซีไอพีs[Math.
 // ipv6 พร็อกซีไอพี example remove comment to use
 // let พร็อกซีไอพี = "[2a01:4f8:c2c:123f:64:5:6810:c55a]"
 
-let dohURL = 'https://cloudflare-dns.com/dns-query'; // https://cloudflare-dns.com/dns-query or https://dns.google/dns-query
+let dohURL = 'https://dns.google/dns-query'; // https://cloudflare-dns.com/dns-query or https://dns.google/dns-query
 
 if (!isValidUUID(userID)) {
 	throw new Error('uuid is invalid');
